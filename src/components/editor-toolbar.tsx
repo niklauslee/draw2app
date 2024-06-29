@@ -30,16 +30,16 @@ function ToolItem({ active = false, children, ...props }: ToolItemProps) {
   );
 }
 
-interface ToolbarProps {
+interface EditorToolbarProps {
   activeHandler: string | null;
   onActiveHandlerChange?: (handler: string) => void;
   editor: Editor | null;
 }
 
-export function Toolbar({
+export function EditorToolbar({
   activeHandler = "Select",
   onActiveHandlerChange,
-}: ToolbarProps) {
+}: EditorToolbarProps) {
   const setActiveHandler = (handler: string) => {
     if (onActiveHandlerChange) onActiveHandlerChange(handler);
   };

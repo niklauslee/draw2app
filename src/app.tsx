@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Layout } from "./components/layout";
 import { Appbar } from "./components/appbar";
-import { Toolbar } from "./components/editor-toolbar";
+import { EditorToolbar } from "./components/editor-toolbar";
 import { FillStyle, Shape, type Editor } from "@dgmjs/core";
 import { DGMEditor } from "@dgmjs/react";
 import { Palette } from "./components/palette";
 import { useAppStore } from "./store";
 import type { ShapeStyle } from "./types";
 import { propsToStyle, styleToProps } from "./utils";
+import { ViewerToolbar } from "./components/viewer-toolbar";
+import { Viewer } from "./components/viewer";
 
 declare global {
   interface Window {
@@ -58,7 +60,7 @@ export function App() {
     <Layout
       topArea={<Appbar />}
       editorToolbar={
-        <Toolbar
+        <EditorToolbar
           editor={editor}
           activeHandler={activeHandler}
           onActiveHandlerChange={(handler) => editor?.activateHandler(handler)}
@@ -76,8 +78,8 @@ export function App() {
           <Palette style={style} onStyleChange={handleStyleChange} />
         </>
       }
-      viewerToolbar="toolbar"
-      viewerArea="content"
+      viewerToolbar={<ViewerToolbar />}
+      viewerArea={<Viewer />}
       onLayout={handleLayout}
     />
   );

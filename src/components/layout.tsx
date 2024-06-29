@@ -31,7 +31,7 @@ export function Layout({
       className="fixed inset-0 h-[calc(100dvh)] select-none bg-background"
       {...others}
     >
-      <div className="fixed inset-x-0 top-0 h-12 px-4 flex items-center">
+      <div className="fixed inset-x-0 top-0 h-12 flex items-center">
         {topArea}
       </div>
       <div className="fixed top-12 bottom-4 left-4 right-4 border rounded-lg">
