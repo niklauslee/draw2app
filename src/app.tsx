@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "./components/layout";
 import { Appbar } from "./components/appbar";
 import { EditorToolbar } from "./components/editor-toolbar";
-import { FillStyle, Shape, type Editor } from "@dgmjs/core";
+import { Action, FillStyle, Shape, type Editor } from "@dgmjs/core";
 import { DGMEditor } from "@dgmjs/react";
 import { Palette } from "./components/palette";
 import { useAppStore } from "./store";
@@ -10,6 +10,7 @@ import type { ShapeStyle } from "./types";
 import { propsToStyle, styleToProps } from "./utils";
 import { ViewerToolbar } from "./components/viewer-toolbar";
 import { Viewer } from "./components/viewer";
+import { fileOpenFromLocal, fileSaveToLocal } from "./commands";
 
 declare global {
   interface Window {
@@ -19,13 +20,13 @@ declare global {
 
 export function App() {
   const [editor, setEditor] = useState<Editor | null>(null);
-  const { activeHandler, style, setActiveHandler, setStyle, setSelection } =
-    useAppStore();
+  const { activeHandler, style, setActiveHandler, setStyle } = useAppStore();
 
   const handleMount = async (editor: Editor) => {
     window.editor = editor;
     editor.newDoc();
     editor.fitToScreen();
+    await fileOpenFromLocal();
     setEditor(editor);
     window.addEventListener("resize", () => editor.fit());
   };
@@ -56,6 +57,10 @@ export function App() {
     editor?.actions.update(props);
   };
 
+  const handleAction = (action: Action) => {
+    fileSaveToLocal();
+  };
+
   return (
     <Layout
       topArea={<Appbar />}
@@ -74,6 +79,9 @@ export function App() {
             onShapeInitialize={handleShapeInitialize}
             onActiveHandlerChange={(handler) => setActiveHandler(handler)}
             onSelectionChange={handleSelectionChange}
+            onAction={handleAction}
+            onUndo={handleAction}
+            onRedo={handleAction}
           />
           <Palette style={style} onStyleChange={handleStyleChange} />
         </>
