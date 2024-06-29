@@ -2,12 +2,20 @@ import {
   fileOpen as fileOpenDialog,
   fileSave as fileSaveDialog,
 } from "browser-fs-access";
+import { confirm } from "./components/confirm-dialog";
 
 export async function fileNew() {
-  const editor = window.editor;
-  editor.selection.deselectAll();
-  editor.newDoc();
-  editor.repaint();
+  const result = await confirm({
+    title: "Are you sure to clear the canvas?",
+    description:
+      "This will clear your current canvas and any unsaved changes will be lost. Are you sure you want to continue?",
+  });
+  if (result) {
+    const editor = window.editor;
+    editor.selection.deselectAll();
+    editor.newDoc();
+    editor.repaint();
+  }
 }
 
 export async function fileOpenFromLocal() {

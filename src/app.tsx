@@ -11,6 +11,7 @@ import { propsToStyle, styleToProps } from "./utils";
 import { ViewerToolbar } from "./components/viewer-toolbar";
 import { Viewer } from "./components/viewer";
 import { fileOpenFromLocal, fileSaveToLocal } from "./commands";
+import { ConfirmDialog } from "./components/confirm-dialog";
 
 declare global {
   interface Window {
@@ -62,33 +63,38 @@ export function App() {
   };
 
   return (
-    <Layout
-      topArea={<Appbar />}
-      editorToolbar={
-        <EditorToolbar
-          editor={editor}
-          activeHandler={activeHandler}
-          onActiveHandlerChange={(handler) => editor?.activateHandler(handler)}
-        />
-      }
-      editorArea={
-        <>
-          <DGMEditor
-            className="absolute inset-0 rounded-bl-lg"
-            onMount={handleMount}
-            onShapeInitialize={handleShapeInitialize}
-            onActiveHandlerChange={(handler) => setActiveHandler(handler)}
-            onSelectionChange={handleSelectionChange}
-            onAction={handleAction}
-            onUndo={handleAction}
-            onRedo={handleAction}
+    <>
+      <Layout
+        topArea={<Appbar />}
+        editorToolbar={
+          <EditorToolbar
+            editor={editor}
+            activeHandler={activeHandler}
+            onActiveHandlerChange={(handler) =>
+              editor?.activateHandler(handler)
+            }
           />
-          <Palette style={style} onStyleChange={handleStyleChange} />
-        </>
-      }
-      viewerToolbar={<ViewerToolbar />}
-      viewerArea={<Viewer />}
-      onLayout={handleLayout}
-    />
+        }
+        editorArea={
+          <>
+            <DGMEditor
+              className="absolute inset-0 rounded-bl-lg"
+              onMount={handleMount}
+              onShapeInitialize={handleShapeInitialize}
+              onActiveHandlerChange={(handler) => setActiveHandler(handler)}
+              onSelectionChange={handleSelectionChange}
+              onAction={handleAction}
+              onUndo={handleAction}
+              onRedo={handleAction}
+            />
+            <Palette style={style} onStyleChange={handleStyleChange} />
+          </>
+        }
+        viewerToolbar={<ViewerToolbar />}
+        viewerArea={<Viewer />}
+        onLayout={handleLayout}
+      />
+      <ConfirmDialog />
+    </>
   );
 }
