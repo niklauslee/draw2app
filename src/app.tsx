@@ -2,8 +2,12 @@ import { useState } from "react";
 import { Layout } from "./components/layout";
 import { Appbar } from "./components/appbar";
 import { Toolbar } from "./components/editor-toolbar";
-import type { Editor } from "@dgmjs/core";
+import { FillStyle, Shape, type Editor } from "@dgmjs/core";
 import { DGMEditor } from "@dgmjs/react";
+import { Palette } from "./components/palette";
+import { useAppStore } from "./store";
+import type { ShapeStyle } from "./types";
+import { propsToStyle, styleToProps } from "./utils";
 
 declare global {
   interface Window {
@@ -13,7 +17,8 @@ declare global {
 
 export function App() {
   const [editor, setEditor] = useState<Editor | null>(null);
-  const [activeHandler, setActiveHandler] = useState<string>("Select");
+  const { activeHandler, style, setActiveHandler, setStyle, setSelection } =
+    useAppStore();
 
   const handleMount = async (editor: Editor) => {
     window.editor = editor;
@@ -27,10 +32,26 @@ export function App() {
     setTimeout(() => editor?.fit(), 0);
   };
 
-  const handleActiveHandlerChange = (handlerId: string) => {
-    // demoStore.setActiveHandler(handlerId);
-    editor?.selection.deselectAll();
-    editor?.focus();
+  const handleShapeInitialize = (shape: Shape) => {
+    shape.fillStyle =
+      shape instanceof Text ? FillStyle.NONE : FillStyle.HACHURE;
+    shape.fontFamily = "Gloria Hallelujah";
+    shape.roughness = 1;
+    const style = useAppStore.getState().style;
+    const props = styleToProps([shape], style);
+    Object.assign(shape, props);
+  };
+
+  const handleSelectionChange = (selections: Shape[]) => {
+    const style = propsToStyle(selections);
+    setStyle(style);
+  };
+
+  const handleStyleChange = (style: ShapeStyle) => {
+    setStyle(style);
+    const selections = editor?.selection.getShapes() ?? [];
+    const props = styleToProps(selections, style);
+    editor?.actions.update(props);
   };
 
   return (
@@ -44,11 +65,16 @@ export function App() {
         />
       }
       editorArea={
-        <DGMEditor
-          className="absolute inset-x-0 top-10 bottom-0 rounded-bl-lg"
-          onMount={handleMount}
-          onActiveHandlerChange={(handler) => setActiveHandler(handler)}
-        />
+        <>
+          <DGMEditor
+            className="absolute inset-0"
+            onMount={handleMount}
+            onShapeInitialize={handleShapeInitialize}
+            onActiveHandlerChange={(handler) => setActiveHandler(handler)}
+            onSelectionChange={handleSelectionChange}
+          />
+          <Palette style={style} onStyleChange={handleStyleChange} />
+        </>
       }
       viewerToolbar="toolbar"
       viewerArea="content"

@@ -2,13 +2,10 @@ import type { Editor } from "@dgmjs/core";
 import {
   CircleIcon,
   HandIcon,
-  HighlighterIcon,
-  ImageIcon,
   MenuIcon,
   MousePointer2Icon,
   PencilIcon,
   SlashIcon,
-  SplineIcon,
   SquareIcon,
   TypeIcon,
 } from "lucide-react";
@@ -34,7 +31,7 @@ function ToolItem({ active = false, children, ...props }: ToolItemProps) {
 }
 
 interface ToolbarProps {
-  activeHandler?: string;
+  activeHandler: string | null;
   onActiveHandlerChange?: (handler: string) => void;
   editor: Editor | null;
 }
@@ -89,14 +86,13 @@ export function Toolbar({
       >
         <TypeIcon size={16} strokeWidth={1.5} />
       </ToolItem>
-      <ToolItem
+      {/* <ToolItem
         title="Image"
         active={activeHandler === "Image"}
         onClick={() => setActiveHandler("Image")}
       >
         <ImageIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
-      <Separator orientation="vertical" className="h-6" />
+      </ToolItem> */}
       <ToolItem
         title="Line"
         active={activeHandler === "Line"}
@@ -104,26 +100,19 @@ export function Toolbar({
       >
         <SlashIcon size={16} strokeWidth={1.5} />
       </ToolItem>
-      <ToolItem
+      {/* <ToolItem
         title="Connector"
         active={activeHandler === "Connector"}
         onClick={() => setActiveHandler("Connector")}
       >
         <SplineIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
+      </ToolItem> */}
       <ToolItem
         title="Freehand"
         active={activeHandler === "Freehand"}
         onClick={() => setActiveHandler("Freehand")}
       >
         <PencilIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
-      <ToolItem
-        title="Highlighter"
-        active={activeHandler === "Highlighter"}
-        onClick={() => setActiveHandler("Highlighter")}
-      >
-        <HighlighterIcon size={16} strokeWidth={1.5} />
       </ToolItem>
     </div>
   );

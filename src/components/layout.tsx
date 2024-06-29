@@ -45,7 +45,9 @@ export function Layout({
               <div className="absolute inset-x-0 top-0 h-10 border-b flex items-center px-1">
                 {editorToolbar}
               </div>
-              {editorArea}
+              <div className="absolute inset-x-0 top-10 bottom-0 rounded-bl-lg">
+                {editorArea}
+              </div>
             </div>
           </ResizablePanel>
           <ResizableHandle />
