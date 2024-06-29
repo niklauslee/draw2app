@@ -90,9 +90,7 @@ export function ConfirmDialog({}) {
     >
       <AlertDialogContent className="p-3 w-72">
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-xs font-semibold">
-            {title}
-          </AlertDialogTitle>
+          <AlertDialogTitle className="text-sm">{title}</AlertDialogTitle>
           <AlertDialogDescription className="text-xs">
             {description}
           </AlertDialogDescription>

@@ -12,6 +12,7 @@ import { ViewerToolbar } from "./components/viewer-toolbar";
 import { Viewer } from "./components/viewer";
 import { fileOpenFromLocal, fileSaveToLocal } from "./commands";
 import { ConfirmDialog } from "./components/confirm-dialog";
+import { SettingDialog } from "./components/setting-dialog";
 
 declare global {
   interface Window {
@@ -21,15 +22,22 @@ declare global {
 
 export function App() {
   const [editor, setEditor] = useState<Editor | null>(null);
-  const { activeHandler, style, setActiveHandler, setStyle } = useAppStore();
+  const { activeHandler, style, setActiveHandler, setStyle, setApiKey } =
+    useAppStore();
+
+  const startApp = async () => {
+    window.editor.newDoc();
+    window.editor.fitToScreen();
+    await fileOpenFromLocal();
+    const apiKey = localStorage.getItem("api-key");
+    setApiKey(apiKey ?? null);
+  };
 
   const handleMount = async (editor: Editor) => {
     window.editor = editor;
-    editor.newDoc();
-    editor.fitToScreen();
-    await fileOpenFromLocal();
     setEditor(editor);
     window.addEventListener("resize", () => editor.fit());
+    await startApp();
   };
 
   const handleLayout = () => {
@@ -95,6 +103,7 @@ export function App() {
         onLayout={handleLayout}
       />
       <ConfirmDialog />
+      <SettingDialog />
     </>
   );
 }
