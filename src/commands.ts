@@ -61,3 +61,13 @@ export async function fileSave() {
     return;
   }
 }
+
+export async function alignSendToBack() {
+  const editor = window.editor;
+  editor.actions.sendToBack();
+}
+
+export async function alignBringToFront() {
+  const editor = window.editor;
+  editor.actions.bringToFront();
+}

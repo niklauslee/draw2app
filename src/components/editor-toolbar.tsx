@@ -18,7 +18,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { fileNew, fileOpen, fileSave } from "@/commands";
+import {
+  alignBringToFront,
+  alignSendToBack,
+  fileNew,
+  fileOpen,
+  fileSave,
+} from "@/commands";
+import { BringToFrontIcon, SendToBackIcon } from "./icons";
 
 interface ToolItemProps extends React.HTMLAttributes<HTMLButtonElement> {
   active: boolean;
@@ -53,93 +60,115 @@ export function EditorToolbar({
   };
 
   return (
-    <div className="w-full h-full flex items-center gap-1 px-1">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="w-8 h-8 p-0">
-            <MenuIcon size={16} strokeWidth={1.5} />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" sideOffset={8} className="w-40">
-          <DropdownMenuItem
-            className="text-xs"
-            onSelect={async () => fileNew()}
-          >
-            New
-          </DropdownMenuItem>
-          <DropdownMenuItem className="text-xs" onSelect={() => fileOpen()}>
-            Open...
-          </DropdownMenuItem>
-          <DropdownMenuItem className="text-xs" onSelect={() => fileSave()}>
-            Save copy as...
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <Separator orientation="vertical" className="h-6" />
-      <ToolItem
-        title="Select"
-        active={activeHandler === "Select"}
-        onClick={() => setActiveHandler("Select")}
-      >
-        <MousePointer2Icon size={16} strokeWidth={1.5} />
-      </ToolItem>
-      <ToolItem
-        title="Hand"
-        active={activeHandler === "Hand"}
-        onClick={() => setActiveHandler("Hand")}
-      >
-        <HandIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
-      <Separator orientation="vertical" className="h-6" />
-      <ToolItem
-        title="Rectangle"
-        active={activeHandler === "Rectangle"}
-        onClick={() => setActiveHandler("Rectangle")}
-      >
-        <SquareIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
-      <ToolItem
-        title="Ellipse"
-        active={activeHandler === "Ellipse"}
-        onClick={() => setActiveHandler("Ellipse")}
-      >
-        <CircleIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
-      <ToolItem
-        title="Text"
-        active={activeHandler === "Text"}
-        onClick={() => setActiveHandler("Text")}
-      >
-        <TypeIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
-      {/* <ToolItem
+    <div className="w-full h-full flex items-center justify-between px-1">
+      <div className="w-full h-full flex items-center gap-1">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="w-8 h-8 p-0">
+              <MenuIcon size={16} strokeWidth={1.5} />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" sideOffset={8} className="w-40">
+            <DropdownMenuItem
+              className="text-xs"
+              onSelect={async () => fileNew()}
+            >
+              New
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-xs" onSelect={() => fileOpen()}>
+              Open...
+            </DropdownMenuItem>
+            <DropdownMenuItem className="text-xs" onSelect={() => fileSave()}>
+              Save copy as...
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Separator orientation="vertical" className="h-6" />
+        <ToolItem
+          title="Select"
+          active={activeHandler === "Select"}
+          onClick={() => setActiveHandler("Select")}
+        >
+          <MousePointer2Icon size={16} strokeWidth={1.5} />
+        </ToolItem>
+        <ToolItem
+          title="Hand"
+          active={activeHandler === "Hand"}
+          onClick={() => setActiveHandler("Hand")}
+        >
+          <HandIcon size={16} strokeWidth={1.5} />
+        </ToolItem>
+        <Separator orientation="vertical" className="h-6" />
+        <ToolItem
+          title="Rectangle"
+          active={activeHandler === "Rectangle"}
+          onClick={() => setActiveHandler("Rectangle")}
+        >
+          <SquareIcon size={16} strokeWidth={1.5} />
+        </ToolItem>
+        <ToolItem
+          title="Ellipse"
+          active={activeHandler === "Ellipse"}
+          onClick={() => setActiveHandler("Ellipse")}
+        >
+          <CircleIcon size={16} strokeWidth={1.5} />
+        </ToolItem>
+        <ToolItem
+          title="Text"
+          active={activeHandler === "Text"}
+          onClick={() => setActiveHandler("Text")}
+        >
+          <TypeIcon size={16} strokeWidth={1.5} />
+        </ToolItem>
+        {/* <ToolItem
         title="Image"
         active={activeHandler === "Image"}
         onClick={() => setActiveHandler("Image")}
       >
         <ImageIcon size={16} strokeWidth={1.5} />
       </ToolItem> */}
-      <ToolItem
-        title="Line"
-        active={activeHandler === "Line"}
-        onClick={() => setActiveHandler("Line")}
-      >
-        <SlashIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
-      {/* <ToolItem
+        <ToolItem
+          title="Line"
+          active={activeHandler === "Line"}
+          onClick={() => setActiveHandler("Line")}
+        >
+          <SlashIcon size={16} strokeWidth={1.5} />
+        </ToolItem>
+        {/* <ToolItem
         title="Connector"
         active={activeHandler === "Connector"}
         onClick={() => setActiveHandler("Connector")}
       >
         <SplineIcon size={16} strokeWidth={1.5} />
       </ToolItem> */}
-      <ToolItem
-        title="Freehand"
-        active={activeHandler === "Freehand"}
-        onClick={() => setActiveHandler("Freehand")}
-      >
-        <PencilIcon size={16} strokeWidth={1.5} />
-      </ToolItem>
+        <ToolItem
+          title="Freehand"
+          active={activeHandler === "Freehand"}
+          onClick={() => setActiveHandler("Freehand")}
+        >
+          <PencilIcon size={16} strokeWidth={1.5} />
+        </ToolItem>
+      </div>
+      <div className="flex items-center">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-xs font-normal p-0 w-8 h-8"
+          title="Bring to front"
+          onClick={() => alignBringToFront()}
+        >
+          <BringToFrontIcon size={16} strokeWidth={1.5} />
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-xs font-normal p-0 w-8 h-8"
+          title="Send to back"
+          onClick={() => alignSendToBack()}
+        >
+          <SendToBackIcon size={16} strokeWidth={1.5} />
+        </Button>
+      </div>
     </div>
   );
 }

@@ -30,30 +30,30 @@ export function Palette({ style, onStyleChange }: PaletteProps) {
         >
           <div className="w-full flex justify-center gap-1">
             <ToggleGroupItem className="text-xs p-0 w-7 h-7" value="foreground">
-              <div className="w-4 h-4 rounded-full bg-foreground"></div>
+              <div className="w-3 h-3 rounded-full bg-foreground"></div>
             </ToggleGroupItem>
             <ToggleGroupItem className="text-xs p-0 w-7 h-7" value="red">
-              <div className="w-4 h-4 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
             </ToggleGroupItem>
             <ToggleGroupItem className="text-xs p-0 w-7 h-7" value="green">
-              <div className="w-4 h-4 rounded-full bg-green-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
             </ToggleGroupItem>
             <ToggleGroupItem className="text-xs p-0 w-7 h-7" value="blue">
-              <div className="w-4 h-4 rounded-full bg-blue-500"></div>
+              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
             </ToggleGroupItem>
           </div>
           <div className="w-full flex justify-center gap-1">
             <ToggleGroupItem className="text-xs p-0 w-7 h-7" value="gray">
-              <div className="w-4 h-4 rounded-full bg-gray-500"></div>
+              <div className="w-3 h-3 rounded-full bg-gray-500"></div>
             </ToggleGroupItem>
             <ToggleGroupItem className="text-xs p-0 w-7 h-7" value="purple">
-              <div className="w-4 h-4 rounded-full bg-purple-500"></div>
+              <div className="w-3 h-3 rounded-full bg-purple-500"></div>
             </ToggleGroupItem>
             <ToggleGroupItem className="text-xs p-0 w-7 h-7" value="cyan">
-              <div className="w-4 h-4 rounded-full bg-cyan-500"></div>
+              <div className="w-3 h-3 rounded-full bg-cyan-500"></div>
             </ToggleGroupItem>
             <ToggleGroupItem className="text-xs p-0 w-7 h-7" value="yellow">
-              <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
             </ToggleGroupItem>
           </div>
         </ToggleGroup>
@@ -69,24 +69,28 @@ export function Palette({ style, onStyleChange }: PaletteProps) {
           <ToggleGroupItem
             className="text-xs font-normal p-0 w-7 h-7"
             value="S"
+            title="Small"
           >
             S
           </ToggleGroupItem>
           <ToggleGroupItem
             className="text-xs font-normal p-0 w-7 h-7"
             value="M"
+            title="Medium"
           >
             M
           </ToggleGroupItem>
           <ToggleGroupItem
             className="text-xs font-normal p-0 w-7 h-7"
             value="L"
+            title="Large"
           >
             L
           </ToggleGroupItem>
           <ToggleGroupItem
             className="text-xs font-normal p-0 w-7 h-7"
             value="XL"
+            title="Extra Large"
           >
             XL
           </ToggleGroupItem>
@@ -103,24 +107,28 @@ export function Palette({ style, onStyleChange }: PaletteProps) {
           <ToggleGroupItem
             className="text-xs font-normal p-0 w-7 h-7"
             value="none"
+            title="None"
           >
             <FillNoneIcon size={16} strokeWidth={1.5} />
           </ToggleGroupItem>
           <ToggleGroupItem
             className="text-xs font-normal p-0 w-7 h-7"
             value="solid"
+            title="Solid"
           >
             <FillSolidIcon size={16} strokeWidth={1.5} />
           </ToggleGroupItem>
           <ToggleGroupItem
             className="text-xs font-normal p-0 w-7 h-7"
             value="hachure"
+            title="Hachure"
           >
             <FillHachureIcon size={16} strokeWidth={1.5} />
           </ToggleGroupItem>
           <ToggleGroupItem
             className="text-xs font-normal p-0 w-7 h-7"
             value="cross-hatch"
+            title="Cross Hatch"
           >
             <FillCrossHatchIcon size={16} strokeWidth={1.5} />
           </ToggleGroupItem>
