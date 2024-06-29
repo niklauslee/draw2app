@@ -53,14 +53,14 @@ export function EditorToolbar({
   };
 
   return (
-    <div className="w-full h-full flex items-center gap-1 bg-background">
+    <div className="w-full h-full flex items-center gap-1 px-1">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="w-8 h-8 p-0">
             <MenuIcon size={16} strokeWidth={1.5} />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" className="w-40">
+        <DropdownMenuContent align="start" sideOffset={8} className="w-40">
           <DropdownMenuItem
             className="text-xs"
             onSelect={async () => fileNew()}
@@ -73,8 +73,6 @@ export function EditorToolbar({
           <DropdownMenuItem className="text-xs" onSelect={() => fileSave()}>
             Save copy as...
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className="text-xs">Export as PNG</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <Separator orientation="vertical" className="h-6" />

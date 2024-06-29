@@ -42,21 +42,21 @@ export function Layout({
         >
           <ResizablePanel defaultSize={50} minSize={20}>
             <div className="relative w-full h-full">
-              <div className="absolute inset-x-0 top-0 h-10 border-b flex items-center px-1">
+              <div className="absolute inset-x-0 top-0 h-10 border-b flex items-center bg-background rounded-tl-lg">
                 {editorToolbar}
               </div>
-              <div className="absolute inset-x-0 top-10 bottom-0 rounded-bl-lg">
+              <div className="absolute inset-x-0 top-10 bottom-0 bg-background rounded-bl-lg">
                 {editorArea}
               </div>
             </div>
           </ResizablePanel>
-          <ResizableHandle />
+          <ResizableHandle withHandle />
           <ResizablePanel defaultSize={50} minSize={20}>
             <div className="relative w-full h-full">
-              <div className="absolute inset-x-0 top-0 h-10 border-b">
+              <div className="absolute inset-x-0 top-0 h-10 border-b bg-background rouneded-tr-lg">
                 {viewerToolbar}
               </div>
-              <div className="absolute inset-x-0 top-10 bottom-0 rounded-br-lg">
+              <div className="absolute inset-x-0 top-10 bottom-0 bg-background rounded-br-lg">
                 {viewerArea}
               </div>
             </div>
