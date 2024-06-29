@@ -28,7 +28,7 @@ export function Layout({
 
   return (
     <div
-      className="fixed inset-0 h-[calc(100dvh)] select-none bg-background"
+      className="fixed inset-0 h-[calc(100dvh)] select-none bg-slate-50"
       {...others}
     >
       <div className="fixed inset-x-0 top-0 h-12 flex items-center">

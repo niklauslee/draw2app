@@ -69,7 +69,7 @@ export function App() {
       editorArea={
         <>
           <DGMEditor
-            className="absolute inset-0"
+            className="absolute inset-0 rounded-bl-lg"
             onMount={handleMount}
             onShapeInitialize={handleShapeInitialize}
             onActiveHandlerChange={(handler) => setActiveHandler(handler)}

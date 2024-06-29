@@ -45,7 +45,7 @@ export function EditorToolbar({
   };
 
   return (
-    <div className="h-full flex items-center gap-1">
+    <div className="w-full h-full flex items-center gap-1 bg-background">
       <Button variant="ghost" className="w-8 h-8 p-0">
         <MenuIcon size={16} strokeWidth={1.5} />
       </Button>
