@@ -168,3 +168,10 @@ export function propsToStyle(shapes: Shape[]): ShapeStyle {
   }
   return style;
 }
+
+export function stripMarkdownCode(code: string): string {
+  code = code.trim();
+  if (code.startsWith("```html")) code = code.slice(7);
+  if (code.endsWith("```")) code = code.slice(0, -3);
+  return code;
+}
