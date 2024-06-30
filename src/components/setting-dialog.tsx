@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAppStore } from "@/store";
-import { Trash2Icon } from "lucide-react";
+import { ArrowRightIcon, Trash2Icon } from "lucide-react";
 
 export interface SettingDialogState {
   open: boolean;
@@ -71,10 +71,28 @@ export function SettingDialog({}) {
               </Button>
             </div>
             <div className="text-xs text-muted-foreground my-2">
-              Enter your OpenAI API key to enable the AI features. The API key
-              is stored locally in your browser and is not sent to the server.
-              Nevertheless, please be careful not to leak your API key and
-              delete it when you are not using it.
+              <p>
+                Enter your OpenAI API key to enable the AI features. The API key
+                is stored locally in your browser and is not sent to the server.
+                Nevertheless, please be careful not to leak your API key and
+                delete it when you are not using it.
+              </p>
+              <ul className="my-2">
+                <li className="flex items-center">
+                  <ArrowRightIcon
+                    size={16}
+                    strokeWidth={1.5}
+                    className="mr-1"
+                  />
+                  <a
+                    href="https://platform.openai.com/api-keys"
+                    target="_blank"
+                    className="underline"
+                  >
+                    OpenAI platform API keys
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
           <div className="text-xs text-muted-foreground"></div>

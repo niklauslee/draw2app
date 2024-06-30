@@ -14,11 +14,10 @@ export function ViewerToolbar({}) {
   const { setOpen } = useSettingDialog();
 
   return (
-    <div className="h-full flex items-center justify-between gap-1 px-1">
+    <div className="h-full w-full flex items-center justify-between gap-1 px-1">
       <div>
         <Tabs
           defaultValue="view"
-          className="w-[400px]"
           onValueChange={(value) => setShowCode(value === "code")}
         >
           <TabsList className="h-8">

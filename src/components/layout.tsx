@@ -40,7 +40,7 @@ export function Layout({
           className="absolute inset-0"
           onLayout={handleLayout}
         >
-          <ResizablePanel defaultSize={50} minSize={20}>
+          <ResizablePanel defaultSize={50} minSize={10}>
             <div className="relative w-full h-full">
               <div className="absolute inset-x-0 top-0 h-10 border-b flex items-center bg-background rounded-tl-lg">
                 {editorToolbar}
@@ -51,7 +51,7 @@ export function Layout({
             </div>
           </ResizablePanel>
           <ResizableHandle withHandle />
-          <ResizablePanel defaultSize={50} minSize={20}>
+          <ResizablePanel defaultSize={50} minSize={10}>
             <div className="relative w-full h-full">
               <div className="absolute inset-x-0 top-0 h-10 border-b bg-background rouneded-tr-lg">
                 {viewerToolbar}

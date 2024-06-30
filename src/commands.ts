@@ -6,6 +6,7 @@ import { confirm } from "./components/confirm-dialog";
 import { useAppStore } from "./store";
 import OpenAI from "openai";
 import { getImageDataUrl } from "@dgmjs/export";
+import systemPrompt from "./prompt.md?raw";
 
 export async function fileNew() {
   const result = await confirm({
@@ -84,8 +85,6 @@ export async function alignBringToFront() {
 }
 
 export async function generateApp() {
-  const prompt =
-    "Generate a web application from the given image. The web app may include JavaScript, CSS and HTML. All the code must be generated into a single HTML file. Show me only code, not explaining text.";
   const editor = window.editor;
   const apiKey = useAppStore.getState().apiKey;
   if (apiKey) {
@@ -106,27 +105,42 @@ export async function generateApp() {
       const stream = await openai.chat.completions.create({
         messages: [
           {
+            role: "system",
+            content: systemPrompt,
+          },
+          {
             role: "user",
-            content: [
-              { type: "image_url", image_url: base64 as any },
-              { type: "text", text: prompt },
-            ],
+            content: [{ type: "image_url", image_url: { url: base64 as any } }],
           },
         ],
-        model: "gpt-4-vision-preview",
+        model: "gpt-4o",
         stream: true,
         max_tokens: 3000,
       });
+      let response = "";
+
+      // Read the stream
       for await (const chunk of stream) {
         const chunkText = chunk.choices[0]?.delta?.content || "";
-        useAppStore
-          .getState()
-          .setAppCode((useAppStore.getState().appCode ?? "") + chunkText);
+        console.log("[chunk]", chunkText);
+        response += chunkText;
         const finishReason = chunk.choices[0]?.finish_reason;
         if (finishReason) {
-          console.log("finishReason", finishReason);
           useAppStore.getState().setGenerating(false);
+          if (finishReason !== "stop") {
+            console.error("Unexpected finish reason:", finishReason);
+          }
         }
+      }
+
+      // Extract HTML code from the response
+      const regex = /```html([\s\S]*?)```/g;
+      const match = regex.exec(response);
+      if (match && match.length > 0) {
+        useAppStore.getState().setAppCode(match[1]);
+      } else {
+        console.error("No match found");
+        useAppStore.getState().setAppCode(null);
       }
     } catch (err) {
       console.error(err);
