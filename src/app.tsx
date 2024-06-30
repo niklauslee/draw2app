@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "./components/layout";
 import { Appbar } from "./components/appbar";
 import { EditorToolbar } from "./components/editor-toolbar";
-import { Action, FillStyle, Shape, type Editor } from "@dgmjs/core";
+import { Action, Connector, FillStyle, Shape, type Editor } from "@dgmjs/core";
 import { DGMEditor } from "@dgmjs/react";
 import { Palette } from "./components/palette";
 import { useAppStore } from "./store";
@@ -50,6 +50,7 @@ export function App() {
       shape instanceof Text ? FillStyle.NONE : FillStyle.HACHURE;
     shape.fontFamily = "Gloria Hallelujah";
     shape.roughness = 1;
+    if (shape instanceof Connector) (shape as Connector).headEndType = "arrow";
     const style = useAppStore.getState().style;
     const props = styleToProps([shape], style);
     Object.assign(shape, props);

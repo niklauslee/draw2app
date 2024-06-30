@@ -25,7 +25,7 @@ import {
   fileOpen,
   fileSave,
 } from "@/commands";
-import { BringToFrontIcon, SendToBackIcon } from "./icons";
+import { ArrowLineIcon, BringToFrontIcon, SendToBackIcon } from "./icons";
 
 interface ToolItemProps extends React.HTMLAttributes<HTMLButtonElement> {
   active: boolean;
@@ -134,13 +134,13 @@ export function EditorToolbar({
         >
           <SlashIcon size={16} strokeWidth={1.5} />
         </ToolItem>
-        {/* <ToolItem
-        title="Connector"
-        active={activeHandler === "Connector"}
-        onClick={() => setActiveHandler("Connector")}
-      >
-        <SplineIcon size={16} strokeWidth={1.5} />
-      </ToolItem> */}
+        <ToolItem
+          title="Arrow"
+          active={activeHandler === "Connector"}
+          onClick={() => setActiveHandler("Connector")}
+        >
+          <ArrowLineIcon size={16} strokeWidth={1.5} />
+        </ToolItem>
         <ToolItem
           title="Freehand"
           active={activeHandler === "Freehand"}
