@@ -5,6 +5,7 @@ import {
   MenuIcon,
   MousePointer2Icon,
   PencilIcon,
+  ShapesIcon,
   SlashIcon,
   SquareIcon,
   TypeIcon,
@@ -24,8 +25,18 @@ import {
   fileNew,
   fileOpen,
   fileSave,
+  shapeInsert,
 } from "@/commands";
 import { ArrowLineIcon, BringToFrontIcon, SendToBackIcon } from "./icons";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import type { Doc, Shape } from "@dgmjs/core";
+import { LibraryView } from "./library-view";
+import { useEffect, useState } from "react";
+import { libraryManager } from "@/libraries";
 
 interface ToolItemProps extends React.HTMLAttributes<HTMLButtonElement> {
   active: boolean;
@@ -57,6 +68,10 @@ export function EditorToolbar({
 }: EditorToolbarProps) {
   const setActiveHandler = (handler: string) => {
     if (onActiveHandlerChange) onActiveHandlerChange(handler);
+  };
+
+  const handleShapeClick = (shape: Shape) => {
+    shapeInsert(shape);
   };
 
   return (
@@ -120,13 +135,6 @@ export function EditorToolbar({
         >
           <TypeIcon size={16} strokeWidth={1.5} />
         </ToolItem>
-        {/* <ToolItem
-        title="Image"
-        active={activeHandler === "Image"}
-        onClick={() => setActiveHandler("Image")}
-      >
-        <ImageIcon size={16} strokeWidth={1.5} />
-      </ToolItem> */}
         <ToolItem
           title="Line"
           active={activeHandler === "Line"}
@@ -148,6 +156,35 @@ export function EditorToolbar({
         >
           <PencilIcon size={16} strokeWidth={1.5} />
         </ToolItem>
+        <Separator orientation="vertical" className="h-6" />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-xs font-normal p-0 w-8 h-8"
+              title="Shapes"
+            >
+              <ShapesIcon size={16} strokeWidth={1.5} />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent
+            side="top"
+            sideOffset={8}
+            className="w-[290px] h-[250px] p-0 relative"
+            onOpenAutoFocus={(event) => {
+              event.preventDefault();
+            }}
+          >
+            <div className="absolute inset-0 flex items-start justify-center p-1.5">
+              <LibraryView
+                className="w-full"
+                doc={libraryManager.docs[0]}
+                onShapeClick={handleShapeClick}
+              />
+            </div>
+          </PopoverContent>
+        </Popover>
       </div>
       <div className="flex items-center">
         <Button

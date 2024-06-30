@@ -7,7 +7,8 @@ import { useAppStore } from "./store";
 import OpenAI from "openai";
 import { getImageDataUrl } from "@dgmjs/export";
 import { toast } from "sonner";
-import systemPrompt from "./prompt.md?raw";
+import systemPrompt from "./assets/prompt.md?raw";
+import { geometry, macro, type Shape } from "@dgmjs/core";
 
 export async function fileNew() {
   const result = await confirm({
@@ -152,4 +153,31 @@ export async function generateApp() {
       useAppStore.getState().setGenerating(false);
     }
   }
+}
+
+/**
+ * Insert shape by cloning from a shape prototype
+ */
+export async function shapeInsert(shapePrototype: Shape, point?: number[]) {
+  const editor = window.editor;
+  const store = editor.store;
+  const tr = editor.transform;
+  const page = editor.getCurrentPage()!;
+  const clone = store.instantiator.clone(shapePrototype) as Shape;
+  clone.proto = false;
+  const boundingRect = clone.getBoundingRect();
+  const w = geometry.width(boundingRect);
+  const h = geometry.height(boundingRect);
+  if (!point) point = editor.getCenter();
+  const dx = point[0] - (boundingRect[0][0] + w / 2);
+  const dy = point[1] - (boundingRect[0][1] + h / 2);
+  tr.startAction("add shape from prototype");
+  tr.transact((tx) => {
+    tx.appendObj(clone);
+    macro.changeParent(tx, clone, page);
+    macro.moveShapes(tx, page, [clone], dx, dy);
+    macro.resolveAllConstraints(tx, page, editor.canvas);
+  });
+  tr.endAction();
+  editor.selection.select([clone]);
 }
