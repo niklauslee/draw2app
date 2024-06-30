@@ -13,6 +13,7 @@ import { Viewer } from "./components/viewer";
 import { fileOpenFromLocal, fileSaveToLocal } from "./commands";
 import { ConfirmDialog } from "./components/confirm-dialog";
 import { SettingDialog } from "./components/setting-dialog";
+import { Toaster } from "@/components/ui/sonner";
 
 declare global {
   interface Window {
@@ -104,6 +105,7 @@ export function App() {
       />
       <ConfirmDialog />
       <SettingDialog />
+      <Toaster position="top-center" />
     </>
   );
 }

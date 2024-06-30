@@ -6,6 +6,7 @@ import { confirm } from "./components/confirm-dialog";
 import { useAppStore } from "./store";
 import OpenAI from "openai";
 import { getImageDataUrl } from "@dgmjs/export";
+import { toast } from "sonner";
 import systemPrompt from "./prompt.md?raw";
 
 export async function fileNew() {
@@ -128,7 +129,10 @@ export async function generateApp() {
         if (finishReason) {
           useAppStore.getState().setGenerating(false);
           if (finishReason !== "stop") {
-            console.error("Unexpected finish reason:", finishReason);
+            toast.error(
+              `Failed to generate app (finish_reaseon=${finishReason})`
+            );
+            return;
           }
         }
       }
@@ -137,10 +141,11 @@ export async function generateApp() {
       const regex = /```html([\s\S]*?)```/g;
       const match = regex.exec(response);
       if (match && match.length > 0) {
-        useAppStore.getState().setAppCode(match[1]);
+        useAppStore.getState().setAppCode(match[1].trim());
+        toast.success("App generated successfully");
       } else {
-        console.error("No match found");
         useAppStore.getState().setAppCode(null);
+        toast.error("Failed to generate app");
       }
     } catch (err) {
       console.error(err);
