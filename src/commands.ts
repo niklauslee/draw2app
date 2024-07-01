@@ -9,6 +9,7 @@ import { getImageDataUrl } from "@dgmjs/export";
 import { toast } from "sonner";
 import systemPrompt from "./assets/prompt.md?raw";
 import { geometry, macro, type Shape } from "@dgmjs/core";
+import exampleJson from "./assets/example.json";
 
 export async function fileNew() {
   const result = await confirm({
@@ -21,6 +22,13 @@ export async function fileNew() {
     editor.selection.deselectAll();
     editor.newDoc();
     editor.repaint();
+  }
+}
+
+export async function fileOpenExample() {
+  const editor = window.editor;
+  if (exampleJson) {
+    editor.loadFromJSON(exampleJson);
   }
 }
 

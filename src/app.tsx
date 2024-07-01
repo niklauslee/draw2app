@@ -10,7 +10,11 @@ import type { ShapeStyle } from "./types";
 import { propsToStyle, styleToProps } from "./utils";
 import { ViewerToolbar } from "./components/viewer-toolbar";
 import { Viewer } from "./components/viewer";
-import { fileOpenFromLocal, fileSaveToLocal } from "./commands";
+import {
+  fileOpenExample,
+  fileOpenFromLocal,
+  fileSaveToLocal,
+} from "./commands";
 import { ConfirmDialog } from "./components/confirm-dialog";
 import { SettingDialog } from "./components/setting-dialog";
 import { Toaster } from "@/components/ui/sonner";
@@ -29,9 +33,14 @@ export function App() {
   const startApp = async () => {
     window.editor.newDoc();
     window.editor.fitToScreen();
-    await fileOpenFromLocal();
+    if (localStorage.getItem("data")) {
+      await fileOpenFromLocal();
+    } else {
+      await fileOpenExample();
+    }
     const apiKey = localStorage.getItem("api-key");
     setApiKey(apiKey ?? null);
+    setTimeout(() => window.editor.repaint(), 500); // repaint after font loading
   };
 
   const handleMount = async (editor: Editor) => {
