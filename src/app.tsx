@@ -65,6 +65,7 @@ export function App() {
     setStyle(style);
     const selections = editor?.selection.getShapes() ?? [];
     const props = styleToProps(selections, style);
+    console.log("props", props);
     editor?.actions.update(props);
   };
 

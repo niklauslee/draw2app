@@ -14,7 +14,7 @@
     "@astrojs/cloudflare": "^11.0.1",
     "@astrojs/react": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
-    "@dgmjs/core": "^0.20.0",
+    "@dgmjs/core": "^0.20.1",
     "@dgmjs/export": "^0.4.0",
     "@dgmjs/react": "^0.20.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",

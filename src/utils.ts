@@ -44,7 +44,7 @@ export function styleToProps(shapes: Shape[], style: ShapeStyle): ShapeProps {
     case "red":
       props = {
         ...props,
-        fontColor: "$red9",
+        ...(isText && { fontColor: "$red9" }),
         strokeColor: "$red9",
         fillColor: isText ? "$background" : "$red4",
       };
@@ -52,7 +52,7 @@ export function styleToProps(shapes: Shape[], style: ShapeStyle): ShapeProps {
     case "green":
       props = {
         ...props,
-        fontColor: "$green9",
+        ...(isText && { fontColor: "$green9" }),
         strokeColor: "$green9",
         fillColor: isText ? "$background" : "$green4",
       };
@@ -60,7 +60,7 @@ export function styleToProps(shapes: Shape[], style: ShapeStyle): ShapeProps {
     case "blue":
       props = {
         ...props,
-        fontColor: "$blue9",
+        ...(isText && { fontColor: "$blue9" }),
         strokeColor: "$blue9",
         fillColor: isText ? "$background" : "$blue4",
       };
@@ -68,7 +68,7 @@ export function styleToProps(shapes: Shape[], style: ShapeStyle): ShapeProps {
     case "gray":
       props = {
         ...props,
-        fontColor: "$gray9",
+        ...(isText && { fontColor: "$gray9" }),
         strokeColor: "$gray9",
         fillColor: isText ? "$background" : "$gray4",
       };
@@ -76,7 +76,7 @@ export function styleToProps(shapes: Shape[], style: ShapeStyle): ShapeProps {
     case "yellow":
       props = {
         ...props,
-        fontColor: "$yellow9",
+        ...(isText && { fontColor: "$yellow9" }),
         strokeColor: "$yellow9",
         fillColor: isText ? "$background" : "$yellow4",
       };
@@ -84,7 +84,7 @@ export function styleToProps(shapes: Shape[], style: ShapeStyle): ShapeProps {
     case "purple":
       props = {
         ...props,
-        fontColor: "$purple9",
+        ...(isText && { fontColor: "$purple9" }),
         strokeColor: "$purple9",
         fillColor: isText ? "$background" : "$purple4",
       };
@@ -92,7 +92,7 @@ export function styleToProps(shapes: Shape[], style: ShapeStyle): ShapeProps {
     case "cyan":
       props = {
         ...props,
-        fontColor: "$cyan9",
+        ...(isText && { fontColor: "$cyan9" }),
         strokeColor: "$cyan9",
         fillColor: isText ? "$background" : "$cyan4",
       };
@@ -100,16 +100,16 @@ export function styleToProps(shapes: Shape[], style: ShapeStyle): ShapeProps {
   }
   switch (style.size) {
     case "S":
-      props = { ...props, fontSize: 14, strokeWidth: isFreehand ? 2 : 1 };
+      props = { ...props, fontSize: 14, strokeWidth: isFreehand ? 3 : 1 };
       break;
     case "M":
-      props = { ...props, fontSize: 16, strokeWidth: isFreehand ? 4 : 2 };
+      props = { ...props, fontSize: 16, strokeWidth: isFreehand ? 6 : 2 };
       break;
     case "L":
-      props = { ...props, fontSize: 20, strokeWidth: isFreehand ? 6 : 3 };
+      props = { ...props, fontSize: 20, strokeWidth: isFreehand ? 9 : 3 };
       break;
     case "XL":
-      props = { ...props, fontSize: 28, strokeWidth: isFreehand ? 8 : 4 };
+      props = { ...props, fontSize: 28, strokeWidth: isFreehand ? 12 : 4 };
       break;
   }
   if (style.fill) {

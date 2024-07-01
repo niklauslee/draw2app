@@ -34,6 +34,7 @@ export type ShapeDragDropEvent = (
 
 interface PrototypeShapeProps extends React.HTMLAttributes<HTMLDivElement> {
   darkMode: boolean;
+  draggable?: boolean;
   shape: Shape;
   width?: number;
   height?: number;
@@ -46,6 +47,7 @@ interface PrototypeShapeProps extends React.HTMLAttributes<HTMLDivElement> {
 
 function PrototypeShape({
   darkMode = false,
+  draggable = false,
   shape,
   width = 32,
   height = 32,
@@ -81,7 +83,7 @@ function PrototypeShape({
       {...others}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      draggable
+      draggable={draggable}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
@@ -109,6 +111,7 @@ function PrototypeShape({
 
 interface LibraryViewProps extends React.HTMLAttributes<HTMLDivElement> {
   doc: Doc;
+  draggable?: boolean;
   shapeWidth?: number;
   shapeHeight?: number;
   shapeMargin?: number;
@@ -121,6 +124,7 @@ interface LibraryViewProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export function LibraryView({
   doc,
+  draggable = false,
   shapeWidth = 38,
   shapeHeight = 38,
   onShapeClick,
